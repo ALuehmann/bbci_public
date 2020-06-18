@@ -56,7 +56,11 @@ if ischar(marker) && strcmp(marker, 'init'),
                  opt.tag, bbci_cls.C.b, util_toString(opt));
   return;
 else
-  feature= varargin{1};
+  %feature= varargin{1};
+  % newly added by AvL Feb 2020: Make compatible with appended features
+  featureBUF = varargin{1};
+  feature.x = cat(1, featureBUF(:).x);
+  feature.time = featureBUF(1).time;
 end
 
 time= marker.current_time;

@@ -47,8 +47,8 @@ if nargin<=1,
   end
 elseif nargin>=2,
   for k= 1:length(bbci.source),
-%    bbci.source(k).acquire_fcn('close', data.source(k).state);
-    bbci.source(k).acquire_fcn('close');
+    bbci.source(k).acquire_fcn('close', data.source(k).state);
+    %bbci.source(k).acquire_fcn('close');
   end
   bbci_apply_adaptation(bbci, data, 'close');
   bbci_log_close(data);

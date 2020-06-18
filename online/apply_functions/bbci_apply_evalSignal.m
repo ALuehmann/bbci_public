@@ -41,6 +41,11 @@ cnt.x= source.x(:,signal.chidx);
 for k= 1:length(bbci_signal.fcn),
   fcn= bbci_signal.fcn{k};
   param= bbci_signal.param{k};
+  %hack starts here - to give custom signal proc function access to global source state struct (AvL 2020)
+  if  strcmp(param{1}, 'globalSState')
+          param{1} = source.state;
+  end
+    %~hack ends here
   if signal.use_state(k),
     [cnt, signal.state{k}]= fcn(cnt, signal.state{k}, param{:});
   else

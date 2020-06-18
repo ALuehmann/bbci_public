@@ -88,7 +88,12 @@ while run,
   source.x= cat(1, source.x, new_data);
   source.sample_no= source.sample_no + size(new_data,1);
   source.time= source.sample_no*1000/source.fs;
-  run= (size(source.x,1) < bbci_source.min_blocklength_sa);
+  % edited stop condition: either stop marker received or blocklength reached 
+  run= (size(source.x,1) < bbci_source.min_blocklength_sa) && ...
+       isempty(find(marker.desc == source.state.acq.stopMarker));
+   if ~isempty(find(marker.desc == source.state.acq.stopMarker));
+       disp('Stop marker received.')
+   end
 end
 
 if ~isempty(source.log.fid) && bbci_source.log.data_packets && ...
